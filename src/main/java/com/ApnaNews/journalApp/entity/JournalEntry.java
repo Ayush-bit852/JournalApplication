@@ -1,25 +1,39 @@
 package com.ApnaNews.journalApp.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+import javax.annotation.processing.Generated;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Document(collection = "Journal_entries")
 public class JournalEntry {
 
     @Id
-    private String id;
+    private ObjectId id;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     private String title;
 
     private String content;
 
+    private LocalDateTime date;
 
-    public String getId() {
-        return id;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public String getTitle() {
@@ -39,4 +53,7 @@ public class JournalEntry {
     }
 
 
+    public String getContent(Object o) {
+            return null;
+    }
 }
