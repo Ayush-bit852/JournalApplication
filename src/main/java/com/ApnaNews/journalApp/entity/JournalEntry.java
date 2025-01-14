@@ -14,6 +14,8 @@ public class JournalEntry {
     @Id
     private ObjectId id;
 
+
+
     public ObjectId getId() {
         return id;
     }
