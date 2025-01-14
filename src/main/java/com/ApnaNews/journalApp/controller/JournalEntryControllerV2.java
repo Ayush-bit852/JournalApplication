@@ -5,9 +5,12 @@ import com.ApnaNews.journalApp.entity.JournalEntry;
 import com.ApnaNews.journalApp.service.JournalEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/journal")
@@ -30,9 +33,12 @@ public class JournalEntryControllerV2 {
     }
 
     @GetMapping("id/{myId}")
-    public JournalEntry getEntryById(@PathVariable("myId") ObjectId myId) {
-    return journalEntryService.findById(myId);
-
+    public Object getEntryById(@PathVariable("myId") ObjectId myId) {
+        Optional<JournalEntry> byId = Optional.ofNullable((journalEntryService.findById(myId)));
+        if (byId.isPresent()) {
+            return new ResponseEntity<>(byId.get(),HttpStatus.OK).getBody();
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("id/{myId}")
